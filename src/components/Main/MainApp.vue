@@ -43,7 +43,7 @@ import axios from "axios"
 
     .container{
         overflow-x: scroll;
-        
+       overflow-y: hidden;
         padding: 10px 0px 0px 10px;
         display: flex;
         flex-direction: column;
