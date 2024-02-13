@@ -27,7 +27,7 @@ import { store } from "../../store"
 <template>
     <div>
         <figure>
-            <img :src="concatenazione" @click="">
+            <img :src="concatenazione">
         </figure>
         <!-- uyM1tesNMM7fg6zmozn8MYD036G.jpg -->
         

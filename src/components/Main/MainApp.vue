@@ -36,8 +36,6 @@ import axios from "axios"
         <h3>ORIGINALE BOOLFLIX</h3>
         <div>
         <SingleCard v-for="(element, index) in store.list" :key="index" :data="element"/>
-
-        
         </div>
     </div>
 </template>

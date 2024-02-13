@@ -1,8 +1,11 @@
 <script>
+import {store} from "../../store"
 export default {
+    emits:["cerca"],
 data() {
     return {
-        name:"HeaderApp"
+        name:"HeaderApp",
+        store
     }
 },
 }
@@ -14,7 +17,7 @@ data() {
 <div>
 
     <h1>BOOLFLIX</h1>
-    <input type="text" name="" id="">
+    <input @keyup.enter="$emit(`cerca`)" v-model="store.find" type="text">
 
 </div>
 
