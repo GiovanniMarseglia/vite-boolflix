@@ -50,7 +50,6 @@ import axios from "axios"
         gap: 10px;
             div{
                 display: flex;
-                gap: 15px;
                         }
     }
 
