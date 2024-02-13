@@ -8,6 +8,7 @@ import { store } from "../../store"
                 visibile:true,
                 store,
                 name:"SingleCard",
+                upHere: false
             }
         },
     }
@@ -18,12 +19,20 @@ import { store } from "../../store"
 
 
 <template>
-    <div>
+    <div  @mouseover="upHere = true" @mouseleave="upHere = false">
         <figure>
             <img :src="store.urlImg + this.data.poster_path + store.key">
         </figure>
         <!-- uyM1tesNMM7fg6zmozn8MYD036G.jpg -->
         
+    <div class="visible" v-show="upHere">
+        <span>Titolo:<span>{{data.title}}</span></span>
+        <span>Titolo originale:<span>{{ data.original_title }}</span></span>
+        <span>Voto:<span></span></span>
+        <span>
+            <p>{{ data.overview }}</p>
+        </span>
+        </div>
     </div>
 </template>
 
@@ -31,14 +40,12 @@ import { store } from "../../store"
 
 
 <style lang="scss" scoped>
+    
 
     div{
-        background-color: blue;
         min-width: 350px;
+        position: relative;
         
-            &:hover{
-                opacity: 0.5;
-            }
             figure{
                 
                 max-width: 100%;
@@ -47,6 +54,19 @@ import { store } from "../../store"
                     max-width: 100%;
                     height: 100%;
                 }
+            }
+        
+            .visible{
+                display: flex;
+                flex-direction: column;
+                position: absolute;
+                height: 100%;
+                background-color: rgba(128, 128, 128, 0.76);
+                padding: 10px;
+                justify-content: center;
+                gap: 10px;
+                font-weight: bold;
+            
             }
     }
 
