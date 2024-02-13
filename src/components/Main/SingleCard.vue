@@ -1,5 +1,4 @@
 <script>
-import axios from "axios"
 import { store } from "../../store"
 
     export default {
@@ -10,11 +9,6 @@ import { store } from "../../store"
                 store,
                 name:"SingleCard",
                 concatenazione: store.urlImg + this.data.poster_path + store.key
-            }
-        },
-        methods: {
-            test(){
-                console.log(this.data.poster_path)
             }
         },
     }
