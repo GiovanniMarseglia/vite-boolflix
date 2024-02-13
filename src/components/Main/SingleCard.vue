@@ -8,7 +8,6 @@ import { store } from "../../store"
                 visibile:true,
                 store,
                 name:"SingleCard",
-                concatenazione: store.urlImg + this.data.poster_path + store.key
             }
         },
     }
@@ -21,7 +20,7 @@ import { store } from "../../store"
 <template>
     <div>
         <figure>
-            <img :src="concatenazione">
+            <img :src="store.urlImg + this.data.poster_path + store.key">
         </figure>
         <!-- uyM1tesNMM7fg6zmozn8MYD036G.jpg -->
         

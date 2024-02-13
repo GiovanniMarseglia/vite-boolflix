@@ -14,16 +14,12 @@ import axios from "axios"
                 store
             }
         },
-        methods: {
-            addFilm(){
-                axios.get("https://api.themoviedb.org/3/discover/movie?include_adult=true&include_video=false&language=it-IT&page=1&sort_by=popularity.desc&api_key=74dc67de85e410bdd272b41374636719").then( res =>{
+        
+        created(){
+            axios.get("https://api.themoviedb.org/3/discover/movie?include_adult=true&include_video=false&language=it-IT&page=1&sort_by=popularity.desc&api_key=74dc67de85e410bdd272b41374636719").then( res =>{
                     store.list=res.data.results
                     console.log(store.list)
                 })
-            },
-        },
-        mounted(){
-            this.addFilm();
         },
     }
 </script>
