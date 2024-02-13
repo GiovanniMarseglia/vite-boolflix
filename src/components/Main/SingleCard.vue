@@ -8,7 +8,18 @@ import { store } from "../../store"
                 visibile:true,
                 store,
                 name:"SingleCard",
-                upHere: false
+                upHere: false,
+                vote:""
+            }
+        },
+        methods: {
+            voto(){
+                
+                this.vote=this.data.vote_average / 2
+                
+                this.vote=Math.round(this.vote)
+                
+                
             }
         },
     }
@@ -19,7 +30,7 @@ import { store } from "../../store"
 
 
 <template>
-    <div  @mouseover="upHere = true" @mouseleave="upHere = false">
+    <div  @mouseover="upHere = true, voto()" @mouseleave="upHere = false">
         <figure>
             <img :src="store.urlImg + this.data.poster_path + store.key">
         </figure>
@@ -28,7 +39,7 @@ import { store } from "../../store"
     <div class="visible" v-show="upHere">
         <span>Titolo:<span>{{data.title}}</span></span>
         <span>Titolo originale:<span>{{ data.original_title }}</span></span>
-        <span>Voto:<span></span></span>
+        <span>Voto:<span>{{ vote }}</span></span>
         <span>
             <p>{{ data.overview }}</p>
         </span>
