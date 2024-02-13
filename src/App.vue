@@ -1,10 +1,19 @@
-<script setup>
-import HelloWorld from './components/HelloWorld.vue'
+<script>
+import HeaderApp from './components/Header/HeaderApp.vue'
+import MainApp from './components/Main/MainApp.vue'
+
+export default {
+  components:{
+    HeaderApp,
+    MainApp
+  }
+}
 </script>
 
 
 <template>
-  <HelloWorld/>
+  <HeaderApp/>
+  <MainApp/>
 </template>
 
 <style scoped>
