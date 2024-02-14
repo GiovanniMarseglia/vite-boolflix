@@ -4,12 +4,12 @@ import axios from "axios"
 
     export default {
         props:["data"],
-        name:"SingleTv",
+        
         data() {
             return {
                 visibile:true,
                 store,
-                name:"SingleCard",
+                name:"SingleTv",
                 upHere: false,
                 vote:"",
                 reststar:"",
@@ -56,7 +56,7 @@ import axios from "axios"
 
 <template>
     
-    <div @load="actors(), flag()" @mouseover="upHere = true ,voto()" @mouseleave="upHere = false">
+    <div  @mouseover="upHere = true ,actors(), flag(),voto() " @mouseleave="upHere = false">
         <figure>
             <img v-if="data.poster_path!==null" :src="store.urlImg + data.poster_path + store.key">
             <div class="replace" v-else><h2>{{ data.name }}</h2></div>
