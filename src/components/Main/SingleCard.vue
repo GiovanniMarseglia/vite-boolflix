@@ -57,7 +57,7 @@ import { store } from "../../store"
 
 
 <template>
-    <div @load="actors(), flag(),voto()"  @mouseover="upHere = true " @mouseleave="upHere = false">
+    <div @load="actors(), flag()"  @mouseover="upHere = true ,voto()" @mouseleave="upHere = false">
         <figure>
             <img v-if="data.poster_path!==null" :src="store.urlImg + this.data.poster_path + store.key">
             <div class="replace" v-else><h2>{{ data.title }}</h2></div>
