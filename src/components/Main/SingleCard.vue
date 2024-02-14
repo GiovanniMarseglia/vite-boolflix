@@ -51,6 +51,18 @@ import { store } from "../../store"
             },
 
 
+
+            watch: {
+        'store.list': {
+            handler: function () {
+                // Chiamata alla funzione actors quando i dati nel file store.js cambiano
+                this.actors();
+            },
+            
+        }
+    }
+
+
             
         }
         
@@ -61,7 +73,7 @@ import { store } from "../../store"
 
 
 <template>
-    <div @mouseover="upHere = true ,voto(),actors(), flag()" @mouseleave="upHere = false">
+    <div @mouseover="upHere = true ,voto(), flag()" @mouseleave="upHere = false">
         <figure>
             <img v-if="data.poster_path!==null" :src="store.urlImg + this.data.poster_path + store.key">
             <div class="replace" v-else><h2>{{ data.title }}</h2></div>

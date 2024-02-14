@@ -44,8 +44,23 @@ import axios from "axios"
     
                 this.actors()
     
-            }
+            },
+
+
+            watch: {
+        'store.listtv': {
+            handler: function () {
+                // Chiamata alla funzione actors quando i dati nel file store.js cambiano
+                this.actors();
+            },
             
+        }
+    }
+
+
+
+
+                    
         }
     
     
@@ -56,7 +71,7 @@ import axios from "axios"
 
 <template>
     
-    <div  @mouseover="upHere = true ,actors(), flag(),voto() " @mouseleave="upHere = false">
+    <div  @mouseover="upHere = true, flag(),voto() " @mouseleave="upHere = false">
         <figure>
             <img v-if="data.poster_path!==null" :src="store.urlImg + data.poster_path + store.key">
             <div class="replace" v-else><h2>{{ data.name }}</h2></div>
