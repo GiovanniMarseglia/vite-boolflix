@@ -96,7 +96,7 @@ import { store } from "../../store"
                 flex-direction: column;
                 position: absolute;
                 height: 100%;
-                background-color: rgba(128, 128, 128, 0.76);
+                background-color: rgba(128, 128, 128, 0.877);
                 padding: 10px;
                 justify-content: center;
                 gap: 10px;

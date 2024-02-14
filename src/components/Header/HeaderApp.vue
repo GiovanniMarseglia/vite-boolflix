@@ -18,7 +18,7 @@ data() {
 
     <h1>BOOLFLIX</h1>
     
-    <input @keyup.enter="$emit(`cerca`)" v-model="store.find" type="text">
+    <input @keyup.enter="$emit(`cerca`)" v-model="store.find" type="text" placeholder="Search a Movie/Tv series">
 
 </div>
 

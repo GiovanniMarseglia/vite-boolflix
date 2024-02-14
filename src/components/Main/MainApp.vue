@@ -67,7 +67,10 @@ import axios from "axios"
 
 
 <style lang="scss" scoped>
-
+@use "../../styles/partials/mixins" as *;
+    h3{
+        color: white;
+    }
     .container{
         overflow: hidden;
         padding: 10px 0px 0px 10px;
@@ -79,11 +82,13 @@ import axios from "axios"
                         }
         .containermovie{
             overflow-x: scroll;
-            padding-bottom: 10px;
+            padding-bottom: 20px;
+            @include no-scrollbar
         }
         .containertv{
             overflow-x: scroll;
-            padding-bottom: 10px;
+            padding-bottom: 20px;
+            @include no-scrollbar
         }
     }
 
