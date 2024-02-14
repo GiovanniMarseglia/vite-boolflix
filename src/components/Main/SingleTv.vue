@@ -34,7 +34,7 @@ import axios from "axios"
                 axios.get(`https://api.themoviedb.org/3/tv/${this.data.id}/credits?api_key=74dc67de85e410bdd272b41374636719`).then(res => {
                     this.actor=res.data.cast
                     this.actor = this.actor.slice(0, 5);
-                    console.log(this.actor)
+                    
                     
                     
                 })
@@ -56,7 +56,7 @@ import axios from "axios"
 
 <template>
     
-    <div @mouseover="upHere = true, voto(), flag()" @mouseleave="upHere = false">
+    <div @load="actors(), flag()" @mouseover="upHere = true ,voto()" @mouseleave="upHere = false">
         <figure>
             <img v-if="data.poster_path!==null" :src="store.urlImg + data.poster_path + store.key">
             <div class="replace" v-else><h2>{{ data.name }}</h2></div>

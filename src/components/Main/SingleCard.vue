@@ -33,7 +33,7 @@ import { store } from "../../store"
                 axios.get(`https://api.themoviedb.org/3/movie/${this.data.id}/credits?api_key=74dc67de85e410bdd272b41374636719`).then(res => {
                     this.actor=res.data.cast
                     this.actor = this.actor.slice(0, 5);
-                    console.log(this.actor)
+                    
                     
                     // store.actor=res.data.cast.name[0]
                     // console.log(store.actor)
@@ -57,7 +57,7 @@ import { store } from "../../store"
 
 
 <template>
-    <div  @mouseover="upHere = true, voto(), flag()" @mouseleave="upHere = false">
+    <div @load="actors(), flag(),voto()"  @mouseover="upHere = true " @mouseleave="upHere = false">
         <figure>
             <img v-if="data.poster_path!==null" :src="store.urlImg + this.data.poster_path + store.key">
             <div class="replace" v-else><h2>{{ data.title }}</h2></div>
