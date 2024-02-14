@@ -17,6 +17,7 @@ data() {
 <div>
 
     <h1>BOOLFLIX</h1>
+    
     <input @keyup.enter="$emit(`cerca`)" v-model="store.find" type="text">
 
 </div>
