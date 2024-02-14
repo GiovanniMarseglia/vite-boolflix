@@ -1,5 +1,6 @@
 <script>
 import { store } from "../../store"
+import axios from "axios"
 
     export default {
         props:["data"],
@@ -12,7 +13,8 @@ import { store } from "../../store"
                 upHere: false,
                 vote:"",
                 reststar:"",
-                country:"IT"
+                country:"IT",
+                actor:[]
             }
         },
         methods: {
@@ -27,9 +29,25 @@ import { store } from "../../store"
             flag(){
                 this.country=this.data.original_language.toUpperCase()
                 
-            }
+            },
+            actors(){
+                axios.get(`https://api.themoviedb.org/3/tv/${this.data.id}/credits?api_key=74dc67de85e410bdd272b41374636719`).then(res => {
+                    this.actor=res.data.cast
+                    this.actor = this.actor.slice(0, 5);
+                    console.log(this.actor)
+                    
+                    
+                })
+            },
         },
-    }
+            created(){
+    
+                this.actors()
+    
+            }
+            
+        }
+    
     
 </script>
 
@@ -53,6 +71,9 @@ import { store } from "../../store"
         <span>
             <p>{{ data.overview }}</p>
         </span>
+        <span v-for="element in actor">
+            <span> {{ element.original_name}} </span> 
+            </span>
         </div>
     </div>
 </template>
