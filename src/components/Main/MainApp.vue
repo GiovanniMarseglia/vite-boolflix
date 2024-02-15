@@ -81,7 +81,7 @@ import axios from "axios"
         </div>
 
         <div class="containertv" ref="scroll_container2" @wheel.prevent="scrollXX">
-        <SingleTv v-for="(element, index) in store.listtv" :key="index" :data="element" :sel2="store.value2"/>
+        <SingleTv v-for="(element, index) in store.listtv" :key="index" :data="element" :sel="store.value2"/>
         </div>
     </div>
 </template>

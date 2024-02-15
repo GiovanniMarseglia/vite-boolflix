@@ -36,12 +36,12 @@ import { store } from "../../store"
                 for(let i=0;i<this.gnr.length;i++){
                         if(this.gnr[i].name==this.sel){
                             this.incluso=true
-                            console.log("a",this.incluso,this.gnr[i].name,"sel",this.sel)
-                        }else{
-                            
-                            console.log("b",this.incluso,this.gnr[i].name,"sel",this.sel)
-                            
+                           
                         }
+                            
+                          
+                            
+                        
                     }
             },
 
@@ -126,14 +126,14 @@ import { store } from "../../store"
             <div>
                 <span class="bold">Attori:</span>
                 <span v-for="element in actor">
-                    {{ element.original_name}} &CenterDot;
+                    &CenterDot; {{ element.original_name}} 
                 </span>
             </div>
 
             <div>
                 <span class="bold">Genere:</span>
                 <span v-for="element in gnr">
-                    {{ element.name }} &CenterDot;
+                    &CenterDot; {{ element.name }}
                 </span>
                 
             </div>

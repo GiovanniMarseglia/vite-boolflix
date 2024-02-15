@@ -3,7 +3,10 @@ import { store } from "../../store"
 import axios from "axios"
 
     export default {
-        props:["data"],
+        props:{
+            ["data"]:Object,
+            sel:String
+        },
         
         data() {
             return {
@@ -15,7 +18,8 @@ import axios from "axios"
                 reststar:"",
                 country:"IT",
                 actor:[],
-                gnr:[]
+                gnr:[],
+                incluso:true
             }
         },
         methods: {
@@ -25,6 +29,22 @@ import axios from "axios"
                     
                     this.gnr=res.data.genres
                 })
+            },
+
+
+            controllo(){
+                this.incluso=false
+                console.log(this.sel)
+                for(let i=0;i<this.gnr.length;i++){
+                        if(this.gnr[i].name==this.sel){
+                            this.incluso=true
+                            console.log("a",this.incluso,this.gnr[i].name,"sel",this.sel)
+                        }else{
+                            
+                            console.log("b",this.incluso,this.gnr[i].name,"sel",this.sel)
+                            
+                        }
+                    }
             },
             voto(){
                 
@@ -62,7 +82,14 @@ import axios from "axios"
                 this.genere()
             },
             
-        }
+        },
+
+        'store.value2': {
+            handler: function () {
+                // Chiamata alla funzione actors quando i dati nel file store.js cambiano
+               this.controllo()
+            },
+        },
     }
 
 
@@ -79,7 +106,7 @@ import axios from "axios"
 
 <template>
     
-    <div  @mouseover="upHere = true, flag(),voto() " @mouseleave="upHere = false">
+    <div  @mouseover="upHere = true, flag(),voto() " @mouseleave="upHere = false" v-show="incluso==true || sel==``">
         <figure>
             <img v-if="data.poster_path!==null" :src="store.urlImg + data.poster_path + store.key">
             <div class="replace" v-else><h2>{{ data.name }}</h2></div>
@@ -98,7 +125,7 @@ import axios from "axios"
                 <span class="bold">Attori:</span>
                 <span v-for="element in actor">
                     <span> 
-                        {{ element.original_name}} &CenterDot; 
+                        &CenterDot;  {{ element.original_name}}  
                     </span> 
                 </span>
             </div>
@@ -107,7 +134,7 @@ import axios from "axios"
             <div>
                 <span class="bold">Genere:</span>
                 <span v-for="element in gnr">
-                    {{ element.name }} &CenterDot;
+                    &CenterDot; {{ element.name }}
                 </span>
                 
             </div>
