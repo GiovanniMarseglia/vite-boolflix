@@ -18,18 +18,35 @@ import { store } from "../../store"
                 reststar:"",
                 country:"IT",
                 actor:[],
-                gnr:[]
+                gnr:[],
+                incluso:true
             }
         },
         methods: {
             genere(){
                 axios.get(`https://api.themoviedb.org/3/movie/${this.data.id}?api_key=74dc67de85e410bdd272b41374636719`).then(res => {
-                    
                     this.gnr=res.data.genres
                 })
+            },
+
+
+            controllo(){
+                this.incluso=false
+                console.log(this.sel)
+                for(let i=0;i<this.gnr.length;i++){
+                        if(this.gnr[i].name==this.sel){
+                            this.incluso=true
+                            console.log("a",this.incluso,this.gnr[i].name,"sel",this.sel)
+                        }else{
+                            
+                            console.log("b",this.incluso,this.gnr[i].name,"sel",this.sel)
+                            
+                        }
+                    }
+            },
 
                 
-            },
+            
             voto(){
                 
                 this.vote=this.data.vote_average / 2
@@ -68,9 +85,15 @@ import { store } from "../../store"
                 this.actors();
                 this.genere()
             },
+        },
+        'store.value1': {
+            handler: function () {
+                // Chiamata alla funzione actors quando i dati nel file store.js cambiano
+               this.controllo()
+            },
+        },
             
         }
-    }
 
 
             
@@ -83,7 +106,7 @@ import { store } from "../../store"
 
 
 <template>
-    <div @mouseover="upHere = true ,voto(), flag()" @mouseleave="upHere = false">
+    <div @mouseover="upHere = true ,voto(), flag()" @mouseleave="upHere = false" v-show="incluso==true || sel==``">
         <figure>
             <img v-if="data.poster_path!==null" :src="store.urlImg + this.data.poster_path + store.key">
             <div class="replace" v-else><h2>{{ data.title }}</h2></div>
@@ -118,6 +141,7 @@ import { store } from "../../store"
           
             </div>
     </div>
+   
 </template>
 
 
