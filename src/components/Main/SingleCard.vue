@@ -181,11 +181,17 @@ import { store } from "../../store"
                 flex-direction: column;
                 position: absolute;
                 height: 100%;
-                background-color: rgba(141, 139, 139, 0.774);
+                background-color: rgba(128, 128, 128, 0.877);
                 padding: 10px;
                 justify-content: center;
                 gap: 7px;
                 line-height: 30px;
+                opacity: 0.2;
+                transition: all 1s;
+                &:hover{
+                    opacity: 1;
+                }
+                
                 
 
                 .bold{

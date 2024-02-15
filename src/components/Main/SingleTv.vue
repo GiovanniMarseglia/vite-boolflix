@@ -131,6 +131,25 @@ import axios from "axios"
 
 <style lang="scss" scoped>
     @use "../../styles/partials/mixins" as *;
+
+    .act{
+        display: flex;
+        flex-wrap: wrap;
+        column-gap: 20px;
+        
+        word-wrap: break-word;
+        :nth-of-type(1){
+            
+        }
+        p{
+            display: flex;  
+        }
+            
+    }
+
+    span{
+        font-size: 20px;
+    }
     
     svg{
         width: 15px;
@@ -171,7 +190,12 @@ import axios from "axios"
                 padding: 10px;
                 justify-content: center;
                 gap: 7px;
-                
+                line-height: 30px;
+                opacity: 0.2;
+                transition: all 1s;
+                &:hover{
+                    opacity: 1;
+                }
                 .bold{
                     font-weight: bold;
                 }

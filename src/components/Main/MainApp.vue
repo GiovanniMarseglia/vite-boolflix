@@ -99,15 +99,26 @@ import axios from "axios"
             gap: 30px;
             align-items: center;
             margin-left: 20px;
+            
                 h3{
                     color: white;
                     font-weight: bold;
                     font-size: 40px;
                 }
                 select{
+                    
                     height: 30px;
                     width: 200px;
+                    border-radius: 999rem;
+                    cursor: pointer;
+                    appearance: none;
+                    padding-inline: 10px;
+                    &:hover{
+                        border-color: rgb(20, 162, 245);
+                    }
+                    
                 }
+                
         }
         div{
             display: flex;

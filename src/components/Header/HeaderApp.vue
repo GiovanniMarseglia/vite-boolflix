@@ -34,10 +34,25 @@ div{
         h1{
             color: red;
             font-size: 60px;
+            cursor: pointer;
+            padding-block: 10px;
+            transition: 1s;
+            &:hover{
+                scale: 105%;
+                
+                
+            }
         }
         input{
             height: 40px;
-            width: 300px;
+            width: 150px;
+            border-radius: 999rem;
+            transition: all 1.5s;
+            &:hover{
+                width: 300px;
+                padding-inline-start: 20px;
+                
+            }
         }
 }
 </style>
