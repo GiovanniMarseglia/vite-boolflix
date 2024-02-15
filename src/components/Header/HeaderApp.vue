@@ -15,11 +15,8 @@ data() {
 <template>
  
 <div>
-
     <h1>BOOLFLIX</h1>
-    
     <input @keyup.enter="$emit(`cerca`)" v-model="store.find" type="text" placeholder="Search a Movie/Tv series">
-
 </div>
 
 </template>
@@ -31,14 +28,16 @@ div{
     width: 100%;
     display: flex;
     justify-content: space-between;
-    padding: 20px;
+    padding: 40px;
     background-color: black;
+    align-items: center;
         h1{
             color: red;
+            font-size: 60px;
         }
         input{
-            height: 30px;
-            width: 230px;
+            height: 40px;
+            width: 300px;
         }
 }
 </style>

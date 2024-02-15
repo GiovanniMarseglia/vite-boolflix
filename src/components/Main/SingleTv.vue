@@ -23,14 +23,12 @@ import axios from "axios"
             }
         },
         methods: {
-
             genere(){
-                axios.get(`https://api.themoviedb.org/3/tv/${this.data.id}?api_key=74dc67de85e410bdd272b41374636719`).then(res => {
+                axios.get(`${store.urltv}${this.data.id}?${store.key}`).then(res => {
                     
                     this.gnr=res.data.genres
                 })
             },
-
 
             controllo(){
                 this.incluso=false
@@ -41,15 +39,13 @@ import axios from "axios"
                             console.log("a",this.incluso,this.gnr[i].name,"sel",this.sel)
                         }else{
                             
-                            console.log("b",this.incluso,this.gnr[i].name,"sel",this.sel)
-                            
+                            console.log("b",this.incluso,this.gnr[i].name,"sel",this.sel)   
                         }
                     }
             },
             voto(){
-                
                 this.vote=this.data.vote_average / 2
-                
+        
                 this.vote=Math.round(this.vote)
                 
                 this.reststar=5 - this.vote
@@ -59,7 +55,7 @@ import axios from "axios"
                 
             },
             actors(){
-                axios.get(`https://api.themoviedb.org/3/tv/${this.data.id}/credits?api_key=74dc67de85e410bdd272b41374636719`).then(res => {
+                axios.get(`${store.urltv}${this.data.id}/credits?${store.key}`).then(res => {
                    
                     this.actor=res.data.cast
                     this.actor = this.actor.slice(0, 5);
@@ -73,36 +69,25 @@ import axios from "axios"
                 this.genere()
             },
 
-
             watch: {
-        'store.listtv': {
-            handler: function () {
-                // Chiamata alla funzione actors quando i dati nel file store.js cambiano
-                this.actors();
-                this.genere()
-            },
+            'store.listtv': {
+                handler: function () {
+                    this.actors();
+                    this.genere()
+                },
             
-        },
-
-        'store.value2': {
-            handler: function () {
-                // Chiamata alla funzione actors quando i dati nel file store.js cambiano
-               this.controllo()
             },
-        },
-    }
 
-
-
-
-                    
+            'store.value2': {
+                handler: function () {
+                this.controllo()
+                },
+            },
         }
-    
+                    
+    }
     
 </script>
-
-
-
 
 <template>
     
@@ -111,7 +96,6 @@ import axios from "axios"
             <img v-if="data.poster_path!==null" :src="store.urlImg + data.poster_path + store.key">
             <div class="replace" v-else><h2>{{ data.name }}</h2></div>
         </figure>
-        <!-- uyM1tesNMM7fg6zmozn8MYD036G.jpg -->
         
         <div class="visible" v-show="upHere">
             <span><span class="bold">Titolo:</span><span>{{data.name}}</span></span>
@@ -129,7 +113,6 @@ import axios from "axios"
                     </span> 
                 </span>
             </div>
-
 
             <div>
                 <span class="bold">Genere:</span>
@@ -149,7 +132,6 @@ import axios from "axios"
 <style lang="scss" scoped>
     @use "../../styles/partials/mixins" as *;
     
-    
     svg{
         width: 15px;
         filter: invert(70%) sepia(82%) saturate(987%) hue-rotate(2deg) brightness(106%) contrast(102%);
@@ -165,9 +147,7 @@ import axios from "axios"
         position: relative;
         
             figure{
-                
                 max-width: 100%;
-               
                 img{
                     max-width: 100%;
                     height: 100%;
@@ -192,7 +172,6 @@ import axios from "axios"
                 justify-content: center;
                 gap: 7px;
                 
-
                 .bold{
                     font-weight: bold;
                 }
@@ -206,11 +185,7 @@ import axios from "axios"
                     
                 }
                 .flag{
-                    
-                        max-width: 25px;
-                       
-                        
-                    
+                        max-width: 25px;       
                 }
             
             }

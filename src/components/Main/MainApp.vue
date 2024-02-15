@@ -19,20 +19,20 @@ import axios from "axios"
         },
         
         created(){
-            axios.get("https://api.themoviedb.org/3/discover/movie?include_adult=true&include_video=false&page=1&sort_by=popularity.desc&api_key=74dc67de85e410bdd272b41374636719").then( res =>{
+            axios.get(`https://api.themoviedb.org/3/discover/movie?include_adult=true&include_video=false&page=1&sort_by=popularity.desc&${store.key}`).then( res =>{
                     store.list=res.data.results
                     
                 }),
-            axios.get("https://api.themoviedb.org/3/discover/tv?include_adult=true&include_video=false&page=1&sort_by=popularity.desc&api_key=74dc67de85e410bdd272b41374636719").then( res =>{
+            axios.get(`https://api.themoviedb.org/3/discover/tv?include_adult=true&include_video=false&page=1&sort_by=popularity.desc&${store.key}`).then( res =>{
                 store.listtv=res.data.results
                 console.log(store.listtv)
             })
 
-            axios.get("https://api.themoviedb.org/3/genre/movie/list?api_key=74dc67de85e410bdd272b41374636719").then( res =>{
+            axios.get(`https://api.themoviedb.org/3/genre/movie/list?${store.key}`).then( res =>{
                 store.allgnr=res.data.genres
             })
 
-            axios.get("https://api.themoviedb.org/3/genre/tv/list?api_key=74dc67de85e410bdd272b41374636719").then( res =>{
+            axios.get(`https://api.themoviedb.org/3/genre/tv/list?${store.key}`).then( res =>{
                 store.allgnrtv=res.data.genres
             })
 
@@ -40,22 +40,20 @@ import axios from "axios"
         },
         methods: {
             scrollX(e) {
-    if (this.$refs.scroll_container.contains(e.target)) {
-      this.$refs.scroll_container.scrollLeft += e.deltaY;
-    }
-  },
+                if (this.$refs.scroll_container.contains(e.target)) {
+                this.$refs.scroll_container.scrollLeft += e.deltaY;
+            }
+            },
 
-  scrollXX(e) {
-    if (this.$refs.scroll_container2.contains(e.target)) {
-      this.$refs.scroll_container2.scrollLeft += e.deltaY;
-    }
-  },
-  
-},
+            scrollXX(e) {
+                if (this.$refs.scroll_container2.contains(e.target)) {
+                this.$refs.scroll_container2.scrollLeft += e.deltaY;
+            }
+            },
+    
+        },
     }
 </script>
-
-
 
 
 <template>
@@ -87,13 +85,9 @@ import axios from "axios"
 </template>
 
 
-
-
 <style lang="scss" scoped>
 @use "../../styles/partials/mixins" as *;
-    h3{
-        color: white;
-    }
+    
     .container{
         overflow: hidden;
         padding: 10px 0px 0px 10px;
@@ -103,6 +97,17 @@ import axios from "axios"
         .titleSelect{
             display: flex;
             gap: 30px;
+            align-items: center;
+            margin-left: 20px;
+                h3{
+                    color: white;
+                    font-weight: bold;
+                    font-size: 40px;
+                }
+                select{
+                    height: 30px;
+                    width: 200px;
+                }
         }
         div{
             display: flex;
