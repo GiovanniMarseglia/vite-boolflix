@@ -115,12 +115,14 @@ import axios from "axios"
         .containermovie{
             overflow-x: scroll;
             padding-bottom: 20px;
-            @include no-scrollbar
+            @include no-scrollbar;
+            cursor: pointer;
         }
         .containertv{
             overflow-x: scroll;
             padding-bottom: 20px;
-            @include no-scrollbar
+            @include no-scrollbar;
+            cursor: pointer;
         }
     }
 
