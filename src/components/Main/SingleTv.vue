@@ -14,10 +14,18 @@ import axios from "axios"
                 vote:"",
                 reststar:"",
                 country:"IT",
-                actor:[]
+                actor:[],
+                gnr:[]
             }
         },
         methods: {
+
+            genere(){
+                axios.get(`https://api.themoviedb.org/3/tv/${this.data.id}?api_key=74dc67de85e410bdd272b41374636719`).then(res => {
+                    
+                    this.gnr=res.data.genres
+                })
+            },
             voto(){
                 
                 this.vote=this.data.vote_average / 2
@@ -32,10 +40,9 @@ import axios from "axios"
             },
             actors(){
                 axios.get(`https://api.themoviedb.org/3/tv/${this.data.id}/credits?api_key=74dc67de85e410bdd272b41374636719`).then(res => {
+                   
                     this.actor=res.data.cast
                     this.actor = this.actor.slice(0, 5);
-                    
-                    
                     
                 })
             },
@@ -43,7 +50,7 @@ import axios from "axios"
             created(){
     
                 this.actors()
-    
+                this.genere()
             },
 
 
@@ -52,6 +59,7 @@ import axios from "axios"
             handler: function () {
                 // Chiamata alla funzione actors quando i dati nel file store.js cambiano
                 this.actors();
+                this.genere()
             },
             
         }
@@ -89,11 +97,21 @@ import axios from "axios"
             <div class="act">
                 <span class="bold">Attori:</span>
                 <span v-for="element in actor">
-                <span> 
-                    {{ element.original_name}} &CenterDot; 
-                </span> 
+                    <span> 
+                        {{ element.original_name}} &CenterDot; 
+                    </span> 
                 </span>
             </div>
+
+
+            <div>
+                <span class="bold">Genere:</span>
+                <span v-for="element in gnr">
+                    {{ element.name }} &CenterDot;
+                </span>
+                
+            </div>
+            
         </div>
     </div>
 </template>

@@ -14,10 +14,19 @@ import { store } from "../../store"
                 vote:"",
                 reststar:"",
                 country:"IT",
-                actor:[]
+                actor:[],
+                gnr:[]
             }
         },
         methods: {
+            genere(){
+                axios.get(`https://api.themoviedb.org/3/movie/${this.data.id}?api_key=74dc67de85e410bdd272b41374636719`).then(res => {
+                    
+                    this.gnr=res.data.genres
+                })
+
+                
+            },
             voto(){
                 
                 this.vote=this.data.vote_average / 2
@@ -36,9 +45,6 @@ import { store } from "../../store"
                     this.actor = this.actor.slice(0, 5);
                     
                     
-                    // store.actor=res.data.cast.name[0]
-                    // console.log(store.actor)
-                    
                 })
             }
             
@@ -47,7 +53,7 @@ import { store } from "../../store"
             created(){
     
                 this.actors()
-                
+                this.genere()
             },
 
 
@@ -57,6 +63,7 @@ import { store } from "../../store"
             handler: function () {
                 // Chiamata alla funzione actors quando i dati nel file store.js cambiano
                 this.actors();
+                this.genere()
             },
             
         }
@@ -90,11 +97,19 @@ import { store } from "../../store"
                 <p><span class="bold">Descrizione:</span> {{ data.overview }}</p>
 
             
-            <div class="act">
+            <div>
                 <span class="bold">Attori:</span>
                 <span v-for="element in actor">
                     {{ element.original_name}} &CenterDot;
                 </span>
+            </div>
+
+            <div>
+                <span class="bold">Genere:</span>
+                <span v-for="element in gnr">
+                    {{ element.name }} &CenterDot;
+                </span>
+                
             </div>
             
           
