@@ -50,6 +50,7 @@ import axios from "axios"
                 this.$refs.scroll_container2.scrollLeft += e.deltaY;
             }
             },
+            
     
         },
     }

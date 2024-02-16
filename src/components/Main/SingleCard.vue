@@ -19,13 +19,23 @@ import { store } from "../../store"
                 country:"IT",
                 actor:[],
                 gnr:[],
-                incluso:true
+                incluso:true,
+                linktrailer:"",
+                trailer:false,
             }
         },
         methods: {
             genere(){
                 axios.get(`${store.url}${this.data.id}?${store.key}`).then(res => {
                     this.gnr=res.data.genres
+                    console.log(res)
+                })
+            },
+
+            linktraile(){
+                axios.get(`https://api.themoviedb.org/3/movie/${this.data.id}/videos?${store.key}`).then(res =>{
+                    this.linktrailer=`http://www.youtube.com/embed/${res.data.results[0].key}`
+                    console.log(this.linktrailer)
                 })
             },
 
@@ -67,7 +77,9 @@ import { store } from "../../store"
     
                 this.actors()
                 this.genere()
+                
             },
+            
             
 
             watch: {
@@ -80,6 +92,7 @@ import { store } from "../../store"
             'store.value1': {
                 handler: function () {
                 this.controllo()
+                this.linktraile()
                 },
             },
             
@@ -90,7 +103,7 @@ import { store } from "../../store"
 </script>
 
 <template>
-    <div @mouseover="upHere = true ,voto(), flag()" @mouseleave="upHere = false" v-show="incluso==true || sel==``">
+    <div class="container" @mouseover="upHere = true ,voto(), flag()" @mouseleave="upHere = false" v-show="incluso==true || sel==``"  @click="trailer=true,linktraile()">
         <figure>
             <img v-if="data.poster_path!==null" :src="store.urlImg + this.data.poster_path + store.key">
             <div class="replace" v-else><h2>{{ data.title }}</h2></div>
@@ -122,12 +135,57 @@ import { store } from "../../store"
           
             </div>
     </div>
+    <div class="trailer" v-show="trailer==true">
+        <iframe :src="linktrailer">
+        
+        </iframe>
+        <div class="close" @click="trailer=false" >
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--!Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path fill="#ff0000" d="M256 48a208 208 0 1 1 0 416 208 208 0 1 1 0-416zm0 464A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM175 175c-9.4 9.4-9.4 24.6 0 33.9l47 47-47 47c-9.4 9.4-9.4 24.6 0 33.9s24.6 9.4 33.9 0l47-47 47 47c9.4 9.4 24.6 9.4 33.9 0s9.4-24.6 0-33.9l-47-47 47-47c9.4-9.4 9.4-24.6 0-33.9s-24.6-9.4-33.9 0l-47 47-47-47c-9.4-9.4-24.6-9.4-33.9 0z"/></svg>
+        </div>
+    </div>
    
 </template>
 
 
 <style lang="scss" scoped>
 @use "../../styles/partials/mixins" as *;
+
+
+    .trailer{
+        position: absolute;
+        width: 70vw;
+        height: 70vh;
+        background-color: blue;
+        left: 15vw;
+        top:30vh;
+        z-index:1;
+        iframe{
+            width: 100%;
+            height: 100%;
+        }
+        .close{
+            border-radius: 999rem 999rem;
+            width: 50px;
+            position: absolute;
+           
+            z-index: 2;
+            height: 50px;
+
+            top: -23px;
+            right: -23px;
+            background-color: black;
+            svg{
+                min-width: 50px;
+                filter: invert(15%) sepia(96%) saturate(5287%) hue-rotate(5deg) brightness(93%) contrast(124%);
+               
+                
+            }
+        }
+        
+    }
+
+
+
 
     .act{
         display: flex;
@@ -155,9 +213,10 @@ import { store } from "../../store"
         align-items: center;
         gap: 5px;
     }
-    div{
+    .container{
         min-width: 350px;
         max-width: 350px;
+        min-height: 525px;
         position: relative;
             figure{ 
                 max-width: 100%;
@@ -168,7 +227,7 @@ import { store } from "../../store"
                 .replace{
                     background-color: rgb(189, 130, 21);
                     width: 100%;
-                    height: 100%;
+                    height: 525px;
                     display: flex;
                     align-items: center;
                     justify-content: center;
@@ -187,6 +246,7 @@ import { store } from "../../store"
                 line-height: 30px;
                 opacity: 0.2;
                 transition: all 1s;
+                top: 0;
                 &:hover{
                     opacity: 1;
                 }

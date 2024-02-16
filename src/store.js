@@ -14,5 +14,7 @@ export const store = reactive({
     urlImg:"https://image.tmdb.org/t/p/w500", //aggiungere il percorso dell img restituito dall url
     find:"",
     value1:"",
-    value2:""
+    value2:"",
+    
+    
 });
