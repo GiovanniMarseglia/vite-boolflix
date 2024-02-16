@@ -5,7 +5,7 @@ export default {
 data() {
     return {
         name:"HeaderApp",
-        store
+        store,
     }
 },
 }
@@ -15,15 +15,15 @@ data() {
 <template>
  
 <div>
-    <h1>BOOLFLIX</h1>
-    <input @keyup.enter="$emit(`cerca`)" v-model="store.find" type="text" placeholder="Search a Movie/Tv series">
+    <a href="home"><h1>BOOLFLIX</h1></a>
+    <input @keyup.enter="$emit(`cerca`)" v-model="store.find" type="text" placeholder="Search a Movie/Tv series"
+      :style="{ width: store.find ? '300px' : '', paddingLeft: store.find ? '10px' : ''}">
 </div>
 
 </template>
 
 <style scoped lang="scss">
 @use "../../styles/partials/variables" as *;
-
 div{
     width: 100%;
     display: flex;
@@ -31,6 +31,9 @@ div{
     padding: 40px;
     background-color: black;
     align-items: center;
+        a{
+            text-decoration: none;
+        }
         h1{
             color: red;
             font-size: 60px;
@@ -50,8 +53,7 @@ div{
             transition: all 1.5s;
             &:hover{
                 width: 300px;
-                padding-inline-start: 20px;
-                
+                padding-left: 10px;
             }
         }
 }

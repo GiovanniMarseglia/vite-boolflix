@@ -68,6 +68,7 @@ import axios from "axios"
                 this.actors()
                 this.genere()
             },
+            
 
             watch: {
             'store.listtv': {

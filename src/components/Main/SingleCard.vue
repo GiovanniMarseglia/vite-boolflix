@@ -68,6 +68,7 @@ import { store } from "../../store"
                 this.actors()
                 this.genere()
             },
+            
 
             watch: {
             'store.list': {
