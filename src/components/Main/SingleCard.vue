@@ -238,7 +238,8 @@ import { store } from "../../store"
                 display: flex;
                 flex-direction: column;
                 position: absolute;
-                height: 100%;
+                height: 99%;
+                width: 100%;
                 background-color: rgba(128, 128, 128, 0.877);
                 padding: 10px;
                 justify-content: center;
