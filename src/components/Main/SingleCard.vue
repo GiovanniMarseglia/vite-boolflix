@@ -134,9 +134,7 @@ import { store } from "../../store"
         column-gap: 20px;
         
         word-wrap: break-word;
-        :nth-of-type(1){
-            
-        }
+        
         p{
             display: flex;  
         }
