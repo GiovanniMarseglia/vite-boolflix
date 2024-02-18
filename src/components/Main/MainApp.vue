@@ -91,7 +91,7 @@ import axios from "axios"
     
     .container{
         overflow: hidden;
-        padding: 10px 0px 0px 10px;
+        padding: 10px 0px 30px 10px;
         display: flex;
         flex-direction: column;
         gap: 10px;
@@ -126,16 +126,34 @@ import axios from "axios"
         }
         .containermovie{
             overflow-x: scroll;
-            padding-bottom: 20px;
             @include no-scrollbar;
-            cursor: pointer;
+           
         }
         .containertv{
             overflow-x: scroll;
-            padding-bottom: 20px;
             @include no-scrollbar;
-            cursor: pointer;
+           
         }
     }
 
+
+
+    @media screen and (max-width: 425px){
+         
+    
+        .container{
+        .titleSelect{
+                justify-content: start;
+                gap: 5px;
+                h3{
+                    font-size: 15px;
+                }
+                select{
+                    width: 100px;
+                    height: 25px;
+                    
+                }
+            }
+    }
+}
 </style>

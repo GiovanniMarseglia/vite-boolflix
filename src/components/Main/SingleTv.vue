@@ -92,7 +92,7 @@ import axios from "axios"
 
 <template>
     
-    <div  @mouseover="upHere = true, flag(),voto() " @mouseleave="upHere = false" v-show="incluso==true || sel==``">
+    <div class="containertv" @click="upHere = !upHere, flag(),voto() " @mouseleave="upHere = false" v-show="incluso==true || sel==``">
         <figure>
             <img v-if="data.poster_path!==null" :src="store.urlImg + data.poster_path + store.key">
             <div class="replace" v-else><h2>{{ data.name }}</h2></div>
@@ -107,19 +107,17 @@ import axios from "axios"
             <p><span class="bold">Descrizione:</span>{{ data.overview }}</p>
             
             <div class="act">
-                <span class="bold">Attori:</span>
-                <span v-for="element in actor">
-                    <span> 
-                        &CenterDot;  {{ element.original_name}}  
-                    </span> 
-                </span>
+                <span class="bold">Cast:</span>
+                    <p v-for="element in actor">  
+                        {{ element.original_name}}  
+                    </p> 
             </div>
 
-            <div>
+            <div id="gnr">
                 <span class="bold">Genere:</span>
-                <span v-for="element in gnr">
-                    &CenterDot; {{ element.name }}
-                </span>
+                <p v-for="element in gnr">
+                    {{ element.name }}
+                </p>
                 
             </div>
             
@@ -136,14 +134,13 @@ import axios from "axios"
     .act{
         display: flex;
         flex-wrap: wrap;
-        column-gap: 20px;
-        
+       
         word-wrap: break-word;
-        :nth-of-type(1){
-            
-        }
         p{
-            display: flex;  
+            display: flex;
+            &::after{
+                   content: "//";
+                }  
         }
             
     }
@@ -161,11 +158,12 @@ import axios from "axios"
         align-items: center;
         gap: 5px;
     }
-    div{
+    .containertv{
         min-width: 350px;
         max-width: 350px;
+        min-height: 525px;
         position: relative;
-        
+        cursor: pointer;
             figure{
                 max-width: 100%;
                 img{
@@ -175,7 +173,7 @@ import axios from "axios"
                 .replace{
                     background-color: rgb(189, 130, 21);
                     width: 100%;
-                    height: 100%;
+                    height: 525px;
                     display: flex;
                     align-items: center;
                     justify-content: center;
@@ -187,12 +185,13 @@ import axios from "axios"
                 flex-direction: column;
                 position: absolute;
                 height: 100%;
+                width: 100%;
                 background-color: rgba(128, 128, 128, 0.877);
                 padding: 10px;
                 justify-content: center;
                 gap: 7px;
                 line-height: 30px;
-                opacity: 0.2;
+                opacity: 1;
                 transition: all 1s;
                 &:hover{
                     opacity: 1;
@@ -212,8 +211,81 @@ import axios from "axios"
                 .flag{
                         max-width: 25px;       
                 }
+
+                #gnr{
+                   display: flex;
+                   align-items: center;
+                   p{
+                   &::after{
+                    content: "//";
+                   }
+                }
+                    
+                }
             
             }
     }
+
+
+
+
+
+    @media screen and (max-width: 425px){
+
+        .containertv{
+        min-width: 200px;
+        min-height: 262px;
+        .visible{
+            font-size: 0.6rem;
+            gap: unset;
+            justify-content: space-between;
+            .bold{
+            font-size: 0.8rem;
+        }
+                p{
+                    font-size: 0.8rem;
+                    line-height: 1rem;
+                }
+                
+            
+        }
+        
+        }
+    
+
+        
+        span{
+            font-size: 1rem;
+        }
+        .act{
+            line-height: 1rem;
+        }
+    
+    }
+            
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+@media screen and ((max-width: 1024px) and (min-width: 426px)){
+
+.containertv{
+min-width: 250px;
+min-height: 262px;
+}
+
+}
 
 </style>

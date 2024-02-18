@@ -32,9 +32,25 @@ import { store } from "../../store"
                 })
             },
 
+
+
+            closeVideo() {
+      this.trailer = false;
+      this.$refs.video.contentWindow.postMessage('{"event":"command","func":"stopVideo","args":""}', '*');
+    },
+
+
+
+
+
+
+
+
+
+
             linktraile(){
                 axios.get(`https://api.themoviedb.org/3/movie/${this.data.id}/videos?${store.key}`).then(res =>{
-                    this.linktrailer=`http://www.youtube.com/embed/${res.data.results[0].key}`
+                    this.linktrailer=`https://www.youtube.com/embed/${res.data.results[0].key}`
                     console.log(this.linktrailer)
                 })
             },
@@ -70,6 +86,7 @@ import { store } from "../../store"
                     
                 })
             }
+        
             
         },
             
@@ -103,7 +120,7 @@ import { store } from "../../store"
 </script>
 
 <template>
-    <div class="container" @mouseover="upHere = true ,voto(), flag()" @mouseleave="upHere = false" v-show="incluso==true || sel==``"  @click="trailer=true,linktraile()">
+    <div class="container" @click="upHere = !upHere ,voto(), flag()" @mouseleave="upHere = false" v-show="incluso==true || sel==``"  >
         <figure>
             <img v-if="data.poster_path!==null" :src="store.urlImg + this.data.poster_path + store.key">
             <div class="replace" v-else><h2>{{ data.title }}</h2></div>
@@ -120,26 +137,29 @@ import { store } from "../../store"
             
             <div class="act">
                 <span class="bold">Cast:</span>
-                <p class="parola" v-for="element in actor">
-                     {{ element.original_name}} 
-                </p>
+                
+                    <p class="parola" v-for="element in actor">
+                        {{ element.original_name}} 
+                    </p>
+                
             </div>
 
-            <div>
+            <div class="gnr">
                 <span class="bold">Genere:</span>
                 <span v-for="element in gnr">
                     &CenterDot; {{ element.name }}
                 </span>
                 
             </div>
+            <button id="btnfilm" class="bold" @click="linktraile(),trailer=true">TRAILER</button>
           
             </div>
     </div>
-    <div class="trailer" v-show="trailer==true">
-        <iframe :src="linktrailer">
+    <div class="trailer" v-if="trailer==true">
+        <iframe :src="linktrailer" ref="video" >
         
         </iframe>
-        <div class="close" @click="trailer=false" >
+        <div class="close" @click="closeVideo()" >
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--!Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path fill="#ff0000" d="M256 48a208 208 0 1 1 0 416 208 208 0 1 1 0-416zm0 464A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM175 175c-9.4 9.4-9.4 24.6 0 33.9l47 47-47 47c-9.4 9.4-9.4 24.6 0 33.9s24.6 9.4 33.9 0l47-47 47 47c9.4 9.4 24.6 9.4 33.9 0s9.4-24.6 0-33.9l-47-47 47-47c9.4-9.4 9.4-24.6 0-33.9s-24.6-9.4-33.9 0l-47 47-47-47c-9.4-9.4-24.6-9.4-33.9 0z"/></svg>
         </div>
     </div>
@@ -150,15 +170,20 @@ import { store } from "../../store"
 <style lang="scss" scoped>
 @use "../../styles/partials/mixins" as *;
 
+    #btnfilm{
+        height: 40px;
+        cursor: pointer;
+    }
 
     .trailer{
         position: absolute;
         width: 70vw;
         height: 70vh;
-        background-color: blue;
+        background-color: black;
         left: 15vw;
         top:30vh;
         z-index:1;
+        
         iframe{
             width: 100%;
             height: 100%;
@@ -167,7 +192,7 @@ import { store } from "../../store"
             border-radius: 999rem 999rem;
             width: 50px;
             position: absolute;
-           
+           cursor: pointer;
             z-index: 2;
             height: 50px;
 
@@ -189,14 +214,15 @@ import { store } from "../../store"
 
     .act{
         display: flex;
-        flex-wrap: wrap;
-        column-gap: 20px;
         
+        flex-wrap: wrap;  
         word-wrap: break-word;
+            p{
+                &::after{
+                   content: "//";
+                }
+            }
         
-        p{
-            display: flex;  
-        }
             
     }
 
@@ -218,6 +244,7 @@ import { store } from "../../store"
         max-width: 350px;
         min-height: 525px;
         position: relative;
+        cursor: pointer;
             figure{ 
                 max-width: 100%;
                 img{
@@ -245,12 +272,13 @@ import { store } from "../../store"
                 justify-content: center;
                 gap: 7px;
                 line-height: 30px;
-                opacity: 0.2;
+                opacity: 1;
                 transition: all 1s;
                 top: 0;
                 &:hover{
                     opacity: 1;
                 }
+                
                 
                 
 
@@ -260,6 +288,17 @@ import { store } from "../../store"
     
                 p{
                     @include text-preview;
+                }
+                .gnr{
+                   
+                   &::after{
+                    content: "//";
+                   }
+                    span{
+                        font-size: 1rem;
+                        
+                    }
+                    
                 }
                 
                 .star{
@@ -273,5 +312,138 @@ import { store } from "../../store"
             
             }
     }
+
+
+
+    @media screen and (max-width: 510px){
+
+        .container{
+        min-width: 200px;
+        min-height: 262px;
+        .visible{
+            font-size: 0.6rem;
+            gap: unset;
+            justify-content: space-between;
+            .bold{
+            font-size: 0.8rem;
+        }
+                p{
+                    font-size: 0.8rem;
+                    line-height: 1rem;
+                }
+                .gnr{
+                    line-height: 1rem;
+                    span{
+                        font-size: 0.8rem;
+                        
+                    }
+                    
+                }
+            
+        }
+        
+        }
+
+
+        #btnfilm{
+            height: 25px;
+        }
+
+
+        
+        span{
+            font-size: 1rem;
+        }
+        .act{
+            line-height: 1rem;
+        }
+
+        .trailer{
+        width: 100%;
+        height: 30vh;
+        left: 10px;
+        top:30vh;
+  
+        .close{
+            border-radius: 999rem 999rem;
+            width: 30px;
+            position: absolute;
+            z-index: 2;
+            height: 30px;
+            top: -2vh;
+            right: 5px;
+            background-color: black;
+            svg{
+                min-width: 30px;               
+            }
+        }
+        }
+        
+    }
+
+
+    @media screen and ((max-width: 1024px) and (min-width: 511px)){
+
+        .container{
+        min-width: 250px;
+        min-height: 262px;
+
+        .visible{
+            font-size: 0.6rem;
+            gap: unset;
+            justify-content: space-between;
+            
+                p{
+                    font-size: 0.8rem;
+                    line-height: 1rem;
+                }
+                .gnr{
+                    line-height: 1rem;
+                    span{
+                        font-size: 0.8rem;
+                        
+                    }
+                    
+                }
+            
+        }
+        }
+
+
+       
+
+        
+        span{
+            font-size: 1rem;
+        }
+        .act{
+            line-height: 1rem;
+        }
+
+.trailer{
+width: 100%;
+height: 45vh;
+left: 10px;
+top:25vh;
+z-index:1;
+
+.close{
+            border-radius: 999rem 999rem;
+            width: 30px;
+            position: absolute;
+            z-index: 2;
+            height: 30px;
+            top: -1.5vh;
+            right: -10px;
+            background-color: black;
+            svg{
+                min-width: 30px;               
+            }
+        }
+
+}
+
+}
+
 
 </style>
